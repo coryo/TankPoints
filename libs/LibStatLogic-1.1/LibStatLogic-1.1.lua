@@ -3757,7 +3757,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_SPELL_DMG_MOD_AP"] = {
 			{
 				["tab"] = 3,
-				["num"] = 24,
+				["num"] = 26,
 				["rank"] = {
 					0.1, 0.2, 0.3,
 				},
@@ -3766,7 +3766,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_HEALING_MOD_AP"] = {
 			{
 				["tab"] = 3,
-				["num"] = 24,
+				["num"] = 26,
 				["rank"] = {
 					0.1, 0.2, 0.3,
 				},
@@ -3777,7 +3777,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_SPELL_DMG_MOD_STR"] = {
 			{
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 20,
 				["rank"] = {
 					0.2, 0.4, 0.6,
 				},
@@ -3797,7 +3797,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_SPELL_DMG_MOD_STA"] = {
 			{
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 20,
 				["rank"] = {
 					0.1, 0.2, 0.3,
 				},
@@ -3819,7 +3819,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_SPELL_DMG_MOD_INT"] = {
 			{
 				["tab"] = 1,
-				["num"] = 21,
+				["num"] = 19,
 				["rank"] = {
 					0.04, 0.08, 0.12, 0.16, 0.2,
 				},
@@ -3830,7 +3830,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_HEALING_MOD_INT"] = {
 			{
 				["tab"] = 1,
-				["num"] = 21,
+				["num"] = 19,
 				["rank"] = {
 					0.04, 0.08, 0.12, 0.16, 0.2,
 				},
@@ -3841,7 +3841,7 @@ elseif playerClass == "PALADIN" then
 		["ADD_DODGE"] = {
 			{
 				["tab"] = 2,
-				["num"] = 5,
+				["num"] = 12,
 				["rank"] = {
 					1, 2, 3, 4, 5,
 				},
@@ -3889,7 +3889,7 @@ elseif playerClass == "PALADIN" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 1,
-				["num"] = 19,
+				["num"] = 17,
 				["rank"] = {
 					-0.02, -0.035, -0.05,
 				},
@@ -3904,7 +3904,7 @@ elseif playerClass == "PALADIN" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 18,
+				["num"] = 15,
 				["rank"] = {
 					-0.1, -0.2, -0.3,
 				},
@@ -3921,7 +3921,7 @@ elseif playerClass == "PALADIN" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 18,
+				["num"] = 15,
 				["rank"] = {
 					-0.07, -0.13, -0.2,
 				},
@@ -3938,7 +3938,7 @@ elseif playerClass == "PALADIN" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 7,
+				["num"] = 10,
 				["rank"] = {
 					-0.02, -0.04, -0.06,
 				},
@@ -3952,7 +3952,7 @@ elseif playerClass == "PALADIN" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 23,
+				["num"] = 19,
 				["rank"] = {
 					-0.03, -0.06,
 				},
@@ -3967,7 +3967,7 @@ elseif playerClass == "PALADIN" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 24,
+				["num"] = 23,
 				["rank"] = {
 					-0.01, -0.02, -0.03,
 				},
@@ -3993,7 +3993,7 @@ elseif playerClass == "PALADIN" then
 		["MOD_ARMOR"] = {
 			{
 				["tab"] = 2,
-				["num"] = 8,
+				["num"] = 3,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -4004,7 +4004,7 @@ elseif playerClass == "PALADIN" then
 		["MOD_STR"] = {
 			{
 				["tab"] = 2,
-				["num"] = 2,
+				["num"] = 18,
 				["rank"] = {
 					0.03, 0.06, 0.09, 0.12, 0.15,
 				},
@@ -4024,7 +4024,7 @@ elseif playerClass == "PALADIN" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 20,
+				["num"] = 16,
 				["rank"] = {
 					0.02, 0.04, 0.06,
 				},
@@ -4035,7 +4035,7 @@ elseif playerClass == "PALADIN" then
 		["MOD_INT"] = {
 			{
 				["tab"] = 1,
-				["num"] = 4,
+				["num"] = 7,
 				["rank"] = {
 					0.03, 0.06, 0.09, 0.12, 0.15,
 				},
@@ -4043,7 +4043,7 @@ elseif playerClass == "PALADIN" then
 			},
 			{
 				["tab"] = 1,
-				["num"] = 4,
+				["num"] = 7,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -4056,7 +4056,7 @@ elseif playerClass == "PALADIN" then
 		["MOD_BLOCK_VALUE"] = {
 			{
 				["tab"] = 2,
-				["num"] = 19,
+				["num"] = 1,
 				["rank"] = {
 					0.1, 0.2, 0.3,
 				},

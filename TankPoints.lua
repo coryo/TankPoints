@@ -631,7 +631,6 @@ end
 -------------------------
 -- Update TankPoints panal stats if selected
 function TankPoints:UpdateStats()
-	print("TankPoints:UpdateStats")
 	self:UpdateDataTable()
 	self:RepaintAllStatFrames()
 	--self:Print("UpdateStats - "..self.resultsTable.tankPoints[TP_MELEE]);
