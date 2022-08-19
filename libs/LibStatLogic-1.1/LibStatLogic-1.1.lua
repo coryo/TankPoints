@@ -2413,7 +2413,7 @@ if playerClass == "DRUID" then
 					-0.01, -0.02, -0.03,
 				},
 				["buff"] = GetSpellInfo(32357),		-- ["Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 1",
+				["condition"] = "GetNumGroupMembers() == 1",
 			},
 			{
 				["MELEE"] = true,
@@ -2430,7 +2430,7 @@ if playerClass == "DRUID" then
 					-0.02, -0.04, -0.06,
 				},
 				["buff"] = GetSpellInfo(32357),		-- ["Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 2",
+				["condition"] = "GetNumGroupMembers() == 2",
 			},
 			{
 				["MELEE"] = true,
@@ -2447,7 +2447,7 @@ if playerClass == "DRUID" then
 					-0.03, -0.06, -0.09,
 				},
 				["buff"] = GetSpellInfo(32357),		-- ["Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 3",
+				["condition"] = "GetNumGroupMembers() == 3",
 			},
 			{
 				["MELEE"] = true,
@@ -2464,7 +2464,7 @@ if playerClass == "DRUID" then
 					-0.04, -0.08, -0.12,
 				},
 				["buff"] = GetSpellInfo(32357),		-- ["Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 4",
+				["condition"] = "GetNumGroupMembers() == 4",
 			},
 			{
 				["MELEE"] = true,
@@ -2481,7 +2481,7 @@ if playerClass == "DRUID" then
 					-0.01, -0.02, -0.03,
 				},
 				["buff"] = GetSpellInfo(9634),		-- ["Dire Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 1",
+				["condition"] = "GetNumGroupMembers() == 1",
 			},
 			{
 				["MELEE"] = true,
@@ -2498,7 +2498,7 @@ if playerClass == "DRUID" then
 					-0.02, -0.04, -0.06,
 				},
 				["buff"] = GetSpellInfo(9634),		-- ["Dire Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 2",
+				["condition"] = "GetNumGroupMembers() == 2",
 			},
 			{
 				["MELEE"] = true,
@@ -2515,7 +2515,7 @@ if playerClass == "DRUID" then
 					-0.03, -0.06, -0.09,
 				},
 				["buff"] = GetSpellInfo(9634),		-- ["Dire Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 3",
+				["condition"] = "GetNumGroupMembers() == 3",
 			},
 			{
 				["MELEE"] = true,
@@ -2532,7 +2532,7 @@ if playerClass == "DRUID" then
 					-0.04, -0.08, -0.12,
 				},
 				["buff"] = GetSpellInfo(9634),		-- ["Dire Bear Form"],
-				["condition"] = "GetNumPartyMembers() == 4",
+				["condition"] = "GetNumGroupMembers() == 4",
 			},
 			{--Balance of Power
 				["HOLY"] = true,
@@ -5765,7 +5765,7 @@ k is is a value that changes with class.
 -----------------------------------]]
 -- The following K, C_p, C_d are calculated by Whitetooth (hotdogee [at] gmail [dot] com)
 local K = {
-	0.956, 0.956, 0.988, 0.988, 0.983, 0.956, 0.988, 0.983, 0.983, 0.972,
+	0.956, 0.956, 0.988, 0.988, 0.983, 0.956, 0.988, 0.983, 0.983, 0, 0.972, 0
 	--["WARRIOR"]     = 0.956,
 	--["PALADIN"]     = 0.956,
 	--["HUNTER"]      = 0.988,
@@ -5775,10 +5775,12 @@ local K = {
 	--["SHAMAN"]      = 0.988,
 	--["MAGE"]        = 0.983,
 	--["WARLOCK"]     = 0.983,
+	--
 	--["DRUID"]       = 0.972,
+	--
 }
 local C_p = {
-	1/0.021275, 1/0.021275, 1/0.006870, 1/0.006870, 1/0.021275, 1/0.021275, 1/0.006870, 1/0.021275, 1/0.021275, 1/0.021275,
+	1/0.021275, 1/0.021275, 1/0.006870, 1/0.006870, 1/0.021275, 1/0.021275, 1/0.006870, 1/0.021275, 1/0.021275, 0, 1/0.021275, 0
 	--["WARRIOR"]     = 1/0.021275,
 	--["PALADIN"]     = 1/0.021275,
 	--["HUNTER"]      = 1/0.006870,
@@ -5788,10 +5790,12 @@ local C_p = {
 	--["SHAMAN"]      = 1/0.006870,
 	--["MAGE"]        = 0, --use tank stats
 	--["WARLOCK"]     = 0, --use tank stats
+	--
 	--["DRUID"]       = 0, --use tank stats
+	--
 }
 local C_d = {
-	1/0.011347, 1/0.011347, 1/0.006870, 1/0.006870, 1/0.006650, 1/0.011347, 1/0.006870, 1/0.006650, 1/0.006650, 1/0.008555,
+	1/0.011347, 1/0.011347, 1/0.006870, 1/0.006870, 1/0.006650, 1/0.011347, 1/0.006870, 1/0.006650, 1/0.006650, 0, 1/0.008555, 0
 	--["WARRIOR"]     = 1/0.011347,
 	--["PALADIN"]     = 1/0.011347,
 	--["HUNTER"]      = 1/0.006870,
@@ -5801,13 +5805,15 @@ local C_d = {
 	--["SHAMAN"]      = 1/0.006870,
 	--["MAGE"]        = 1/0.006650,
 	--["WARLOCK"]     = 1/0.006650,
+	--
 	--["DRUID"]       = 1/0.008555,
+	--
 }
 
 -- I've done extensive tests that show the miss cap is 16% for warriors.
 -- Because the only tank I have with 150 pieces of epic gear required for the tests is a warrior,
 -- Until someone that has the will and gear to preform the tests for other classes, I'm going to assume the cap is the same(which most likely isn't)
-local C_m = {16, 16, 16, 16, 16, 16, 16, 16, 16, 16, }
+local C_m = {16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16}
 
 function StatLogic:GetMissedChanceBeforeDR()
 	local baseDefense, additionalDefense = UnitDefense("player")
