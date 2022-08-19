@@ -2214,7 +2214,7 @@ if playerClass == "DRUID" then
 		["ADD_HEALING_MOD_SPI"] = {
 			{
 				["tab"] = 3,
-				["num"] = 24,
+				["num"] = 26,
 				["rank"] = {
 					0.05, 0.10, 0.15,
 				},
@@ -2252,7 +2252,7 @@ if playerClass == "DRUID" then
 		["ADD_HEALING_MOD_AGI"] = {
 			{
 				["tab"] = 2,
-				["num"] = 15,
+				["num"] = 16,
 				["rank"] = {
 					0.35, 0.7,
 				},
@@ -2263,7 +2263,7 @@ if playerClass == "DRUID" then
 		["ADD_MANA_REG_MOD_NORMAL_MANA_REG"] = {
 			{
 				["tab"] = 3,
-				["num"] = 7,
+				["num"] = 9,
 				["rank"] = {
 					0.17, 0.33, 0.50,
 				},
@@ -2274,7 +2274,7 @@ if playerClass == "DRUID" then
 		["ADD_MANA_REG_MOD_INT"] = {
 			{
 				["tab"] = 1,
-				["num"] = 15,
+				["num"] = 14,
 				["rank"] = {
 					0.04, 0.07, 0.10,
 				},
@@ -2287,7 +2287,7 @@ if playerClass == "DRUID" then
 		["ADD_DODGE"] = {
 			{
 				["tab"] = 2,
-				["num"] = 6,
+				["num"] = 12,
 				["rank"] = {
 					2, 4,
 				},
@@ -2295,7 +2295,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 6,
+				["num"] = 12,
 				["rank"] = {
 					2, 4,
 				},
@@ -2303,7 +2303,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 6,
+				["num"] = 12,
 				["rank"] = {
 					2, 4,
 				},
@@ -2311,7 +2311,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 16,
+				["num"] = 29,
 				["rank"] = {
 					2, 4, 6,
 				},
@@ -2319,7 +2319,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 16,
+				["num"] = 29,
 				["rank"] = {
 					2, 4, 6,
 				},
@@ -2375,7 +2375,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 3,
-				["num"] = 25,
+				["num"] = 27,
 				["rank"] = {
 					-0.05, -0.1,
 				},
@@ -2391,7 +2391,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 3,
-				["num"] = 19,
+				["num"] = 18,
 				["rank"] = {
 					-0.02, -0.03, -0.04,
 				},
@@ -2408,7 +2408,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.01, -0.02, -0.03,
 				},
@@ -2425,7 +2425,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.02, -0.04, -0.06,
 				},
@@ -2442,7 +2442,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.03, -0.06, -0.09,
 				},
@@ -2459,7 +2459,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.04, -0.08, -0.12,
 				},
@@ -2476,7 +2476,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.01, -0.02, -0.03,
 				},
@@ -2493,7 +2493,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.02, -0.04, -0.06,
 				},
@@ -2510,7 +2510,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.03, -0.06, -0.09,
 				},
@@ -2527,7 +2527,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					-0.04, -0.08, -0.12,
 				},
@@ -2542,7 +2542,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 1,
-				["num"] = 17,
+				["num"] = 13,
 				["rank"] = {
 					-0.03, -0.06,
 				},
@@ -2560,7 +2560,7 @@ if playerClass == "DRUID" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 1,
-				["num"] = 17,
+				["num"] = 13,
 				["rank"] = {
 					-0.02, -0.04,
 				},
@@ -2585,7 +2585,7 @@ if playerClass == "DRUID" then
 		["MOD_ARMOR"] = {
 			{
 				["tab"] = 2,
-				["num"] = 5,
+				["num"] = 1,
 				["rank"] = {
 					0.04, 0.07, 0.1,
 				},
@@ -2610,7 +2610,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 3,
-				["num"] = 24,
+				["num"] = 19,
 				["rank"] = {
 					0.67, 1.33, 2,
 				},
@@ -2681,7 +2681,7 @@ if playerClass == "DRUID" then
 			},
 			{ -- Heart of the Wild: +2/4/6/8/10% stamina in bear / dire bear
 				["tab"] = 2,
-				["num"] = 17,
+				["num"] = 13,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -2689,7 +2689,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 17,
+				["num"] = 13,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -2753,7 +2753,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 17,
+				["num"] = 13,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -2769,7 +2769,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 28,
 				["rank"] = {
 					0.02, 0.04, 0.06,
 				},
@@ -2816,7 +2816,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 17,
+				["num"] = 13,
 				["rank"] = {
 					0.04, 0.08, 0.12, 0.16, 0.2,
 				},
@@ -2830,7 +2830,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 3,
-				["num"] = 3,
+				["num"] = 2,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -2853,7 +2853,7 @@ if playerClass == "DRUID" then
 			},
 			{
 				["tab"] = 3,
-				["num"] = 17,
+				["num"] = 20,
 				["rank"] = {
 					0.05, 0.1, 0.15,
 				},
