@@ -557,60 +557,6 @@ local function stableSort(sortme, cmp)
 	end
 end
 
---------------------
--- Schedule Tasks --
---------------------
-TankPoints.ScheduledTasks = {}
-function TankPoints:Schedule(taskName, timeAfter, functionName, ...)
-	if (taskName and timeAfter) then -- functionName not required so we can use IsScheduled as a timer check
-		self.ScheduledTasks[taskName] = {
-			TargetTime = GetTime() + timeAfter,
-			FunctionName = functionName,
-			Arg = {...},
-		}
-	end
-end
-
-function TankPoints:ScheduleRepeat(taskName, repeatRate, functionName, ...)
-	if (taskName and repeatRate and functionName) then -- functionName required
-		self.ScheduledTasks[taskName] = {
-			Elapsed = 0,
-			RepeatRate = repeatRate,
-			FunctionName = functionName,
-			Arg = {...},
-		}
-	end
-end
-
-function TankPoints:UnSchedule(taskName)
-	--WT_RaidWarningAPI.Announce({HOTDOG = taskName})
-	if not taskName then return end
-	self.ScheduledTasks[taskName] = nil
-end
-
-function TankPoints:IsScheduled(taskName)
-	return (self.ScheduledTasks[taskName] ~= nil)
-end
-
-function TankPoints:OnUpdate(elapsed)
-	--TankPoints:Debug("update: "..tostring(elapsed))
-	local currentTime = GetTime()
-	for taskName, task in pairs(TankPoints.ScheduledTasks) do
-		if type(task.TargetTime) ~= "nil" and (currentTime >= task.TargetTime) then
-			TankPoints:UnSchedule(taskName)
-			if (task.FunctionName) then
-				task.FunctionName(unpack(task.Arg))
-			end
-		elseif type(task.Elapsed) ~= "nil" then
-			task.Elapsed = task.Elapsed + arg1
-			if (task.Elapsed >= task.RepeatRate) then
-				task.FunctionName(unpack(task.Arg))
-				task.Elapsed = task.Elapsed - task.RepeatRate
-			end
-		end
-	end
-end
-
 ---------------------
 -- Initializations --
 ---------------------
@@ -685,6 +631,7 @@ end
 -------------------------
 -- Update TankPoints panal stats if selected
 function TankPoints:UpdateStats()
+	print("TankPoints:UpdateStats")
 	self:UpdateDataTable()
 	self:RepaintAllStatFrames()
 	--self:Print("UpdateStats - "..self.resultsTable.tankPoints[TP_MELEE]);
@@ -704,23 +651,23 @@ end
 ------------
 -- event = UNIT_AURA
 -- arg1 = UnitID of the entity
-function TankPoints:UNIT_AURA(unit)
+function TankPoints:UNIT_AURA(event, unit)
 	if not (unit == "player") then return end
-	self:Schedule("UpdateStats", 0.7, TankPoints.UpdateStats, TankPoints)
+	C_Timer.After(0.7, function() TankPoints.UpdateStats(TankPoints) end)
 end
 
 -- event = PLAYER_LEVEL_UP
 -- arg1 = New player level
-function TankPoints:PLAYER_LEVEL_UP(level)
+function TankPoints:PLAYER_LEVEL_UP(event, level)
 	self.playerLevel = level
-	self:Schedule("UpdateStats", 0.7, TankPoints.UpdateStats, TankPoints)
+	C_Timer.After(0.7, function() TankPoints.UpdateStats(TankPoints) end)
 end
 
 -- event = UNIT_INVENTORY_CHANGED
 -- arg1 = UnitID of the entity
-function TankPoints:UNIT_INVENTORY_CHANGED(unit)
+function TankPoints:UNIT_INVENTORY_CHANGED(event, unit)
 	if not (unit == "player") then return end
-	self:Schedule("UpdateStats", 0.7, TankPoints.UpdateStats, TankPoints)
+	C_Timer.After(0.7, function() TankPoints.UpdateStats(TankPoints) end)
 end
 
 
