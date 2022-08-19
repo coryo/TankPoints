@@ -31,15 +31,20 @@ Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
 local MAJOR_VERSION = "StatFrameLib-1.0"
 local MINOR_VERSION = 90000 + tonumber(("$Revision: 40 $"):match("(%d+)"))
 
-if not AceLibrary then error(MAJOR_VERSION.." requires AceLibrary.") end
-if not AceLibrary:IsNewVersion(MAJOR_VERSION, MINOR_VERSION) then return end
-if not AceLibrary:HasInstance("AceOO-2.0") then error(MAJOR_VERSION.." requires AceOO-2.0") end
-if not AceLibrary:HasInstance("AceHook-2.1") then error(MAJOR_VERSION.." requires AceHook-2.1") end
+-- if not AceLibrary then error(MAJOR_VERSION.." requires AceLibrary.") end
+-- if not AceLibrary:IsNewVersion(MAJOR_VERSION, MINOR_VERSION) then return end
+-- if not AceLibrary:HasInstance("AceOO-2.0") then error(MAJOR_VERSION.." requires AceOO-2.0") end
+-- if not AceLibrary:HasInstance("AceHook-2.1") then error(MAJOR_VERSION.." requires AceHook-2.1") end
 
 
-local AceOO = AceLibrary:GetInstance("AceOO-2.0")
-local AceHook = AceLibrary:GetInstance("AceHook-2.1")
-local StatFrameLib = AceOO.Mixin {
+local StatFrameLib = LibStub:NewLibrary(MAJOR_VERSION, MINOR_VERSION)
+if not StatFrameLib then return end
+
+local AceHook = LibStub:GetLibrary("AceHook-3.0")
+AceHook:Embed(StatFrameLib)
+
+StatFrameLib.mixinTargets = StatFrameLib.mixinTargets or {}
+local mixins = {
    "AddStatFrame",
    "RemoveStatFrame",
    "RemoveAllStatFrames",
@@ -50,6 +55,15 @@ local StatFrameLib = AceOO.Mixin {
    "StatBoxSet",
    "StatBoxSetWithoutShow",
 }
+
+function StatFrameLib:Embed(target)
+   for _,name in pairs(mixins) do
+      target[name] = StatFrameLib[name]
+    end
+    StatFrameLib.mixinTargets[target] = true
+end
+
+
 
 -- local declarations
 local frame_index_from_name, frame_label_from_name, frame_name_from_index
@@ -64,7 +78,14 @@ local setBlizEventHooks
 
 -- indexes => frame_name
 -- names => labels
-local frame_indexes,frame_names
+StatFrameLib.frame_indexes = StatFrameLib.frame_indexes or {}
+StatFrameLib.frame_names = StatFrameLib.frame_names or {}
+
+
+local frame_indexes = StatFrameLib.frame_indexes
+local frame_names = StatFrameLib.frame_names
+
+
 --#NODOC local
 function frame_index_from_name(name)
    return "ACESTATFRAME_"..string.upper(name)
@@ -100,6 +121,15 @@ end
 --         string - label for the frame.
 --]]
 function StatFrameLib:AddStatFrame(frame_name,frame_label)
+   if not frame_names[self] then
+      frame_names[self] = {}
+   end
+   if not frame_indexes[self] then
+      frame_indexes[self] = {}
+   end
+
+
+   print(frame_name, frame_label)
    local frame_index = frame_index_from_name(frame_name)
 
    for _,v in ipairs(PLAYERSTAT_DROPDOWN_OPTIONS) do
@@ -488,8 +518,14 @@ function activate(self, oldLib, oldDeactivate)
    end
 end
 
-AceLibrary:Register(StatFrameLib, MAJOR_VERSION, MINOR_VERSION, activate)
+-- AceLibrary:Register(StatFrameLib, MAJOR_VERSION, MINOR_VERSION, activate)
+for target,_ in pairs(StatFrameLib.mixinTargets) do
+   StatFrameLib:Embed(target)
+end
 
+slurpDefaultEventHooks()
+
+StatFrameLib:SecureHook("UpdatePaperdollStats",UpdatePaperdollStatsHook)
 
 --[[----------------------------------------
 Example:

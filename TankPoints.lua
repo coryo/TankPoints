@@ -13,16 +13,17 @@ LastUpdate: $Date: 2009-12-08 23:43:21 +0000 (Tue, 08 Dec 2009) $
 ---------------
 local TipHooker = LibStub:GetLibrary("LibTipHooker-1.1")
 local StatLogic = LibStub:GetLibrary("LibStatLogic-1.1")
-local Waterfall = AceLibrary("Waterfall-1.0")
-local L = AceLibrary("AceLocale-2.2"):new("TankPoints")
+local AceConfig = LibStub:GetLibrary("AceConfig-3.0")
+local AceConfigDialog = LibStub:GetLibrary("AceConfigDialog-3.0")
+
+local L = LibStub("AceLocale-3.0"):GetLocale("TankPoints")
 
 
 --------------------
 -- AceAddon Setup --
 --------------------
 -- AceAddon Initialization
-TankPoints = AceLibrary("AceAddon-2.0"):new("AceDB-2.0", "AceConsole-2.0", "AceEvent-2.0", "AceDebug-2.0", "AceHook-2.1", "StatFrameLib-1.0")
-TankPoints.title = "TankPoints"
+TankPoints = LibStub("AceAddon-3.0"):NewAddon("TankPoints", "AceConsole-3.0", "AceEvent-3.0", "AceHook-3.0", "StatFrameLib-1.0")
 TankPoints.version = "2.8.6 (r"..gsub("$Revision: 119 $", "(%d+)", "%1")..")"
 TankPoints.date = gsub("$Date: 2009-12-08 23:43:21 +0000 (Tue, 08 Dec 2009) $", "^.-(%d%d%d%d%-%d%d%-%d%d).-$", "%1")
 
@@ -32,7 +33,7 @@ local TankPoints = TankPoints
 -------------------
 -- Set Debugging --
 -------------------
-TankPoints:SetDebugging(false)
+-- TankPoints:SetDebugging(false)
 
 
 ----------------------
@@ -80,7 +81,7 @@ local schoolIDToString = {
 
 -- SpellInfo
 local SI = {
-	["Holy Shield"] = GetSpellInfo(48951),
+	["Holy Shield"] = GetSpellInfo(20925),
 	["Shield Block"] = GetSpellInfo(2565),
 }
 
@@ -141,30 +142,28 @@ local GetShieldBlock = GetShieldBlock
 ---------------------
 -- Saved Variables --
 ---------------------
--- Register DB
-TankPoints:RegisterDB("TankPointsDB")
 -- Default values
-TankPoints.DBDefaults = {
-	showTooltipDiff = true,
-	showTooltipTotal = false,
-	showTooltipDRDiff = false,
-	showTooltipDRTotal = false,
-	showTooltipEHDiff = false,
-	showTooltipEHTotal = false,
-	showTooltipEHBDiff = false,
-	showTooltipEHBTotal = false,
-	mobLevelDiff = 3,
-	mobDamage = 0,
-	mobCritChance = 0.05,
-	mobCritBonus = 1,
-	mobMissChance = 0.05,
-	mobSpellCritChance = 0,
-	mobSpellCritBonus = 0.5,
-	mobSpellMissChance = 0,
-	shieldBlockDelay = 2,
+local defaults = {
+	profile = {
+		showTooltipDiff = true,
+		showTooltipTotal = false,
+		showTooltipDRDiff = false,
+		showTooltipDRTotal = false,
+		showTooltipEHDiff = false,
+		showTooltipEHTotal = false,
+		showTooltipEHBDiff = false,
+		showTooltipEHBTotal = false,
+		mobLevelDiff = 3,
+		mobDamage = 0,
+		mobCritChance = 0.05,
+		mobCritBonus = 1,
+		mobMissChance = 0.05,
+		mobSpellCritChance = 0,
+		mobSpellCritBonus = 0.5,
+		mobSpellMissChance = 0,
+		shieldBlockDelay = 2,
+	}
 }
--- Register Defaults
-TankPoints:RegisterDefaults("profile", TankPoints.DBDefaults)
 
 -- Set Default Mob Stats
 function TankPoints:SetDefaultMobStats()
@@ -195,7 +194,7 @@ local consoleOptions = {
 			name = L["Options Window"],
 			desc = L["Shows the Options Window"],
 			func = function()
-				Waterfall:Open("TankPoints")
+				AceConfigDialog:Open("TankPoints")
 			end,
 		},
 		calc = {
@@ -221,7 +220,7 @@ local consoleOptions = {
 					name = L["Show TankPoints Difference"],
 					desc = L["Show TankPoints difference in item tooltips"],
 					get = function() return profileDB.showTooltipDiff end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipDiff = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -231,7 +230,7 @@ local consoleOptions = {
 					name = L["Show TankPoints Total"],
 					desc = L["Show TankPoints total in item tooltips"],
 					get = function() return profileDB.showTooltipTotal end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipTotal = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -241,7 +240,7 @@ local consoleOptions = {
 					name = L["Show Melee DR Difference"],
 					desc = L["Show Melee Damage Reduction difference in item tooltips"],
 					get = function() return profileDB.showTooltipDRDiff end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipDRDiff = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -251,7 +250,7 @@ local consoleOptions = {
 					name = L["Show Melee DR Total"],
 					desc = L["Show Melee Damage Reduction total in item tooltips"],
 					get = function() return profileDB.showTooltipDRTotal end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipDRTotal = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -261,7 +260,7 @@ local consoleOptions = {
 					name = L["Show Effective Health Difference"],
 					desc = L["Show Effective Health difference in item tooltips"],
 					get = function() return profileDB.showTooltipEHDiff end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipEHDiff = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -271,7 +270,7 @@ local consoleOptions = {
 					name = L["Show Effective Health Total"],
 					desc = L["Show Effective Health total in item tooltips"],
 					get = function() return profileDB.showTooltipEHTotal end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipEHTotal = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -281,7 +280,7 @@ local consoleOptions = {
 					name = L["Show Effective Health (with Block) Difference"],
 					desc = L["Show Effective Health (with Block) difference in item tooltips"],
 					get = function() return profileDB.showTooltipEHBDiff end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipEHBDiff = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -291,7 +290,7 @@ local consoleOptions = {
 					name = L["Show Effective Health (with Block) Total"],
 					desc = L["Show Effective Health (with Block) total in item tooltips"],
 					get = function() return profileDB.showTooltipEHBTotal end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.showTooltipEHBTotal = v
 						TankPointsTooltips.ClearCache()
 					end,
@@ -308,7 +307,7 @@ local consoleOptions = {
 					name = L["Shield Block Key Press Delay"],
 					desc = L["Sets the time in seconds after Shield Block finishes cooldown"],
 					get = function() return profileDB.shieldBlockDelay end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.shieldBlockDelay = v
 						TankPoints:UpdateStats()
 						-- Update Calculator
@@ -331,7 +330,7 @@ local consoleOptions = {
 					name = L["Mob Level"],
 					desc = L["Sets the level difference between the mob and you"],
 					get = function() return profileDB.mobLevelDiff end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.mobLevelDiff = v
 						TankPoints:UpdateStats()
 						-- Update Calculator
@@ -348,7 +347,7 @@ local consoleOptions = {
 					name = L["Mob Damage"],
 					desc = L["Sets mob's damage before damage reduction"],
 					get = function() return profileDB.mobDamage or TankPoints:GetMobDamage(UnitLevel("player") + profileDB.mobLevelDiff) end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.mobDamage = v
 						TankPoints:UpdateStats()
 						-- Update Calculator
@@ -367,7 +366,7 @@ local consoleOptions = {
 					get = function()
 						return floor((profileDB.mobDamage or TankPoints:GetMobDamage(UnitLevel("player") + profileDB.mobLevelDiff)) * (1-TankPoints.resultsTable.guaranteedReduction[TP_MELEE]))
 					end,
-					set = function(v)
+					set = function(info, v)
 						profileDB.mobDamage = floor(v / (1-TankPoints.resultsTable.guaranteedReduction[TP_MELEE]))
 						TankPoints:UpdateStats()
 						-- Update Calculator
@@ -395,7 +394,7 @@ local consoleOptions = {
 							name = L["Mob Melee Crit"],
 							desc = L["Sets mob's melee crit chance"],
 							get = function() return profileDB.mobCritChance end,
-							set = function(v)
+							set = function(info, v)
 								profileDB.mobCritChance = v
 								TankPoints:UpdateStats()
 								-- Update Calculator
@@ -412,7 +411,7 @@ local consoleOptions = {
 							name = L["Mob Melee Crit Bonus"],
 							desc = L["Sets mob's melee crit bonus"],
 							get = function() return profileDB.mobCritBonus end,
-							set = function(v)
+							set = function(info, v)
 								profileDB.mobCritBonus = v
 								TankPoints:UpdateStats()
 								-- Update Calculator
@@ -428,7 +427,7 @@ local consoleOptions = {
 							name = L["Mob Melee Miss"],
 							desc = L["Sets mob's melee miss chance"],
 							get = function() return profileDB.mobMissChance end,
-							set = function(v)
+							set = function(info, v)
 								profileDB.mobMissChance = v
 								TankPoints:UpdateStats()
 								-- Update Calculator
@@ -445,7 +444,7 @@ local consoleOptions = {
 							name = L["Mob Spell Crit"],
 							desc = L["Sets mob's spell crit chance"],
 							get = function() return profileDB.mobSpellCritChance end,
-							set = function(v)
+							set = function(info, v)
 								profileDB.mobSpellCritChance = v
 								TankPoints:UpdateStats()
 								-- Update Calculator
@@ -462,7 +461,7 @@ local consoleOptions = {
 							name = L["Mob Spell Crit Bonus"],
 							desc = L["Sets mob's spell crit bonus"],
 							get = function() return profileDB.mobSpellCritBonus end,
-							set = function(v)
+							set = function(info, v)
 								profileDB.mobSpellCritBonus = v
 								TankPoints:UpdateStats()
 								-- Update Calculator
@@ -478,7 +477,7 @@ local consoleOptions = {
 							name = L["Mob Spell Miss"],
 							desc = L["Sets mob's spell miss chance"],
 							get = function() return profileDB.mobSpellMissChance end,
-							set = function(v)
+							set = function(info, v)
 								profileDB.mobSpellMissChance = v
 								TankPoints:UpdateStats()
 								-- Update Calculator
@@ -497,11 +496,12 @@ local consoleOptions = {
 	},
 }
 
-TankPoints:RegisterChatCommand({"/tp", "/tankpoints"}, consoleOptions)
+AceConfig:RegisterOptionsTable("TankPoints", consoleOptions, {"tp", "tankpoints"})
+AceConfigDialog:AddToBlizOptions("TankPoints", L["TankPoints Options"], consoleOptions)
 
-Waterfall:Register("TankPoints", 
-"aceOptions", consoleOptions, 
-"title", L["TankPoints Options"])
+-- Waterfall:Register("TankPoints",
+-- "aceOptions", consoleOptions,
+-- "title", L["TankPoints Options"])
 
 -----------
 -- Tools --
@@ -624,7 +624,10 @@ PLAYER_LOGIN - Most information about the game world should now be available to 
 -- OnInitialize(name) called at ADDON_LOADED
 function TankPoints:OnInitialize()
 	-- Initialize profileDB
-	profileDB = TankPoints.db.profile
+	self.db = LibStub("AceDB-3.0"):New("TankPointsDB", defaults, true)
+	consoleOptions.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
+	profileDB = self.db.profile
+
 	-- OnUpdate Frame
 	self.OnUpdateFrame = CreateFrame("Frame")
 	self.OnUpdateFrame:SetScript("OnUpdate", self.OnUpdate)
@@ -756,7 +759,7 @@ function TankPoints:PaintTankPoints(line1, line2, line3, line4, line5, line6)
 	local spellTankPoints = commaValue(floor(self.resultsTable.tankPoints[self.currentSchool]))
 	self:StatBoxSet(line4, self.SchoolName[self.currentSchool]..L[" TP"], spellTankPoints)
 	-- Line5: SpellReduction
-	local spellReduction = self.resultsTable.totalReduction[self.currentSchool] * 100          
+	local spellReduction = self.resultsTable.totalReduction[self.currentSchool] * 100
 	self:StatBoxSet(line5, self.SchoolName[self.currentSchool]..L[" DR"], spellReduction, true)
 	 -- Line6: TankPointsCalculator
 	local calc_label = ""
@@ -824,7 +827,8 @@ function TankPoints:PaintEffectiveHealthTooltip()
 	-- Stance
 	local currentStance = GetShapeshiftForm()
 	if currentStance ~= 0 then
-		local _, stanceName = GetShapeshiftFormInfo(currentStance)
+		local _, active, castable, spellID = GetShapeshiftFormInfo(currentStance)
+		local stanceName = GetSpellInfo(spellID)
 		if stanceName then
 			textL = L["In "]..stanceName
 			textR = format("%d%%", resultDT.damageTakenMod[TP_MELEE] * 100)
@@ -849,7 +853,7 @@ function TankPoints:PaintEffectiveHealthTooltip()
 	end
 
 	-- What Ifs
-	GameTooltip:AddDoubleLine(L["Per StatValue"],L["Effective Health"], HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, 
+	GameTooltip:AddDoubleLine(L["Per StatValue"],L["Effective Health"], HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b,
 		HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	local delta_eh = function(new,old)
 		return format("%.1f", new.effectiveHealth[TP_MELEE] - old.effectiveHealth[TP_MELEE]).." EH"
@@ -897,13 +901,14 @@ function TankPoints:PaintEffectiveHealth_EffectiveHealthWithBlockTooltip()
 	end
 	-------------
 	-- Title Line
-	GameTooltip:SetText(L["Effective Health (with Block) vs Melee "]..commaValue(floor(resultDT.effectiveHealthWithBlock[TP_MELEE])), 
+	GameTooltip:SetText(L["Effective Health (with Block) vs Melee "]..commaValue(floor(resultDT.effectiveHealthWithBlock[TP_MELEE])),
 		HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	---------
 	-- Stance
 	local currentStance = GetShapeshiftForm()
 	if currentStance ~= 0 then
-		local _, stanceName = GetShapeshiftFormInfo(currentStance)
+		local _, active, castable, spellID = GetShapeshiftFormInfo(currentStance)
+		local stanceName = GetSpellInfo(spellID)
 		if stanceName then
 			textL = L["In "]..stanceName
 			textR = format("%d%%", resultDT.damageTakenMod[TP_MELEE] * 100)
@@ -998,26 +1003,27 @@ function TankPoints:PaintEffectiveHealth_SpellEffectiveHealthTooltip()
 	local s = self.currentEHSchool
 	-------------
 	-- Title Line
-	GameTooltip:SetText(format(L["Effective Health vs %s %s"], self.SchoolName[s], commaValue(floor(resultDT.effectiveHealth[s])), 
+	GameTooltip:SetText(format(L["Effective Health vs %s %s"], self.SchoolName[s], commaValue(floor(resultDT.effectiveHealth[s])),
 		HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b), HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	---------
 	-- Stance
 	local currentStance = GetShapeshiftForm()
 	if currentStance ~= 0 then
-		local _, stanceName = GetShapeshiftFormInfo(currentStance)
+		local _, active, castable, spellID = GetShapeshiftFormInfo(currentStance)
+		local stanceName = GetSpellInfo(spellID)
 		if stanceName then
 			textL = L["In "]..stanceName
 			textR = format("%d%%", resultDT.damageTakenMod[s] * 100)
 			GameTooltip:AddDoubleLine(textL, textR, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		end
 	end
-	
+
 	addline(L["Health"], commaValue(resultDT.playerHealth))
 	addline(L["Resistance Reduction"], pct(resultDT.schoolReduction[s]))
 	addline(L["Talent/Buff/Stance Reductions"], pct(1 - resultDT.damageTakenMod[s]))
 	addline(L["Guaranteed Reduction"], pct(resultDT.guaranteedReduction[s]))
 
-	GameTooltip:AddDoubleLine(L["Per StatValue"],L["Effective Health"], HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b, 
+	GameTooltip:AddDoubleLine(L["Per StatValue"],L["Effective Health"], HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b,
 		HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	local delta_eh = function(new,old)
 		return format("%.1f", new.effectiveHealth[s] - old.effectiveHealth[s]).." EH"
@@ -1045,7 +1051,7 @@ function TankPoints:PaintEffectiveHealth_AllSchoolsEffectiveHealthTooltip()
 	TankPoints:UpdateDataTable()
 	local resultDT = self.resultsTable
 	GameTooltip:SetText(L["Effective Health - All Schools"], HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
-	
+
 	local schools = {}
 	copyTable(schools, self.ResistableElementalSchools)
 	stableSort(schools, function(a,b)
@@ -1217,7 +1223,8 @@ function TankPoints.TankPointsFrame_OnEnter(frame, motion)
 	-- Stance
 	local currentStance = GetShapeshiftForm()
 	if currentStance ~= 0 then
-		local _, stanceName = GetShapeshiftFormInfo(currentStance)
+		local _, active, castable, spellID = GetShapeshiftFormInfo(currentStance)
+		local stanceName = GetSpellInfo(spellID)
 		if stanceName then
 			textL = L["In "]..stanceName
 			textR = format("%d%%", resultsDT.damageTakenMod[TP_MELEE] * 100)
@@ -1513,12 +1520,12 @@ function TankPoints.MeleeReductionFrame_OnEnter(frame, motion)
 		textR = format("%.2f%%", StatLogic:GetAvoidanceGainAfterDR("PARRY", StatLogic:GetEffectFromRating(16 * StatLogic:GetStatMod("ADD_CR_PARRY_MOD_STR"), CR_PARRY, TankPoints.playerLevel)))
 		GameTooltip:AddDoubleLine(textL, textR, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	end
-	
+
 	-- +16 Agility --
 	textL = "+16 "..SPELL_STAT2_NAME..":"
 	textR = format("%.2f%%", StatLogic:GetAvoidanceGainAfterDR("DODGE", 16 * StatLogic:GetStatMod("MOD_AGI") * StatLogic:GetDodgePerAgi()))
 	GameTooltip:AddDoubleLine(textL, textR, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	
+
 	-- +16 Defense Rating --
 	textL = "+16 "..COMBAT_RATING_NAME2..":"
 	local avoid = StatLogic:GetAvoidanceGainAfterDR("MELEE_HIT_AVOID", StatLogic:GetEffectFromRating(16, CR_DEFENSE_SKILL, TankPoints.playerLevel) * 0.04)
@@ -1528,19 +1535,19 @@ function TankPoints.MeleeReductionFrame_OnEnter(frame, motion)
 	end
 	textR = format("%.2f%%", avoid)
 	GameTooltip:AddDoubleLine(textL, textR, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	
+
 	-- +16 Dodge Rating --
 	textL = "+16 "..COMBAT_RATING_NAME3..":"
 	textR = format("%.2f%%", StatLogic:GetAvoidanceGainAfterDR("DODGE", StatLogic:GetEffectFromRating(16, CR_DODGE, TankPoints.playerLevel)))
 	GameTooltip:AddDoubleLine(textL, textR, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
-	
+
 	-- +16 Parry Rating --
 	if GetParryChance() ~= 0 then
 		textL = "+16 "..COMBAT_RATING_NAME4..":"
 		textR = format("%.2f%%", StatLogic:GetAvoidanceGainAfterDR("PARRY", StatLogic:GetEffectFromRating(16, CR_PARRY, TankPoints.playerLevel)))
 		GameTooltip:AddDoubleLine(textL, textR, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b)
 	end
-	
+
 	GameTooltip:AddLine(L["Only includes Dodge, Parry, and Missed"], GRAY_FONT_COLOR.r, GRAY_FONT_COLOR.g, GRAY_FONT_COLOR.b)
 
 	GameTooltip:Show()
@@ -1620,7 +1627,8 @@ function TankPoints.SpellTankPointsFrame_OnEnter(frame, motion)
 	-- Stance
 	local currentStance = GetShapeshiftForm()
 	if currentStance ~= 0 then
-		local _, stanceName = GetShapeshiftFormInfo(currentStance)
+		local _, active, castable, spellID = GetShapeshiftFormInfo(currentStance)
+		local stanceName = GetSpellInfo(spellID)
 		if stanceName then
 			textL = L["In "]..stanceName
 			textR = format("%d%%", resultsDT.damageTakenMod[TankPoints.currentSchool] * 100)
@@ -1702,7 +1710,7 @@ function TankPoints.SpellReductionFrame_OnEnter(frame, motion)
 		GameTooltip:AddDoubleLine(textL, textR, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b, NORMAL_FONT_COLOR.r, NORMAL_FONT_COLOR.g, NORMAL_FONT_COLOR.b);
 		GameTooltip:AddTexture("Interface\\PaperDollInfoFrame\\SpellSchoolIcon"..s);
 	end
-	
+
 	---------------------------------
 	-- Left click: Show next school
 	textL = L["Left click: Show next school"]
@@ -1731,7 +1739,7 @@ function TankPoints.SpellReductionFrame_OnEnter(frame, motion)
 	end
 	--textL = textL..FONT_COLOR_CODE_CLOSE
 	GameTooltip:AddLine(textL)
-	
+
 	GameTooltip:Show()
 end
 
@@ -1900,7 +1908,7 @@ function TankPoints:GetshieldBlockUpTime(timeBetweenPresses, mobAtkSpeed, blockC
 	local avgAttackCount = shieldBlockDuration / mobAtkSpeed
 	local min = floor(avgAttackCount)
 	local percentage = avgAttackCount - floor(avgAttackCount)
-	local avgOnTime = self:GetShieldBlockOnTime(min, mobAtkSpeed, blockChance, talant) * (1 - percentage) + 
+	local avgOnTime = self:GetShieldBlockOnTime(min, mobAtkSpeed, blockChance, talant) * (1 - percentage) +
 	                  self:GetShieldBlockOnTime(min + 1, mobAtkSpeed, blockChance, talant) * percentage
 	return avgOnTime / timeBetweenPresses
 end
@@ -1909,7 +1917,7 @@ end
 -- mobContactChance is both regular hits, crits, and crushes
 -- This works through simulation. Each mob attack until you run out of health
 -- is evaluated for whether or not you can expect to have a guaranteed block.
--- 
+--
 -- Ciderhelm makes reference to how this would be calculated at http://www.theoryspot.com/forums/theory-articles-guides/1060-effective-health-theory.html
 --
 -- EHB (Effective Health w/ Block) will change depending upon how often you
@@ -1927,12 +1935,12 @@ function TankPoints:GetEffectiveHealthWithBlock(TP_Table, mobDamage)
 	local sbCoolDown, sbDuration, sbDuration
 	-- Check for guaranteed block
 	if self.playerClass == "PALADIN" then
-		if not (select(5, GetTalentInfo(2, 17)) > 0) then -- Check for Holy Shield talent
+		if not (select(5, GetTalentInfo(2, 7)) > 0) then -- Check for Holy Shield talent
 			return effectiveHealth
 		end
-		if ((10 / (8 + TP_Table.shieldBlockDelay) >= 1) and not UnitBuff("player", SI["Holy Shield"])) and mobContactChance > 0 then -- If Holy Shield has 100% uptime
+		if ((10 / (8 + TP_Table.shieldBlockDelay) >= 1) and not AuraUtil.FindAuraByName(SI["Holy Shield"], "player")) and mobContactChance > 0 then -- If Holy Shield has 100% uptime
 			return effectiveHealth
-		elseif UnitBuff("player", SI["Holy Shield"]) and mobContactChance > 0 then -- If Holy Shield is already up
+		elseif AuraUtil.FindAuraByName(SI["Holy Shield"], "player") and mobContactChance > 0 then -- If Holy Shield is already up
 			return effectiveHealth
 		elseif mobContactChance > 30 then
 			return effectiveHealth
@@ -1941,7 +1949,7 @@ function TankPoints:GetEffectiveHealthWithBlock(TP_Table, mobDamage)
 		sbDuration = 10
 		sbCharges = 8
 	elseif self.playerClass == "WARRIOR" then
-		if not UnitBuff("player", SI["Shield Block"]) then
+		if not AuraUtil.FindAuraByName(SI["Shield Block"], "player") then
 			blockValue = blockValue * 2
 		end
 		local _, _, _, _, r = GetTalentInfo(3, 8)
@@ -1951,7 +1959,7 @@ function TankPoints:GetEffectiveHealthWithBlock(TP_Table, mobDamage)
 	else -- neither Paladin or Warrior
 		return effectiveHealth
 	end
-	
+
 	mobDamage = ceil(mobDamage)
 	local shieldBlockDelay = TP_Table.shieldBlockDelay
 	local timeBetweenPresses = sbCoolDown + shieldBlockDelay
@@ -2138,7 +2146,7 @@ function TankPoints:GetSourceData(TP_Table, school, forceShield)
 	TP_Table.playerClass = self.playerClass
 	TP_Table.mobLevel = UnitLevel(unit) + self.db.profile.mobLevelDiff
 	-- Resilience
-	TP_Table.resilience = GetCombatRating(CR_CRIT_TAKEN_MELEE)
+	TP_Table.resilience = GetCombatRating(CR_RESILIENCE_CRIT_TAKEN)
 	TP_Table.damageTakenMod = {}
 	----------------
 	-- Melee Data --
@@ -2548,13 +2556,13 @@ function TankPoints:CalculateTankPoints(TP_Table, school, forceShield)
 	-----------------
 	-- Paladin Talent: Ardent Defender (Rank 3) - 2,18
 	--  Damage that takes you below 35% health is reduced by 7/13/20%
-	if self.playerClass == "PALADIN" and select(5, GetTalentInfo(2, 18)) > 0 then
-		local _, _, _, _, r = GetTalentInfo(2, 18)
+	if self.playerClass == "PALADIN" and select(5, GetTalentInfo(2, 15)) > 0 then
+		local _, _, _, _, r = GetTalentInfo(2, 15)
 		local inc = 0.35 / (1 - ArdentDefenderRankEffect[r]) - 0.35 -- 8.75% @ rank3
 		TP_Table.playerHealth = TP_Table.playerHealth * (1 + inc)
 	end
 	-- Resilience Mod
-	TP_Table.resilienceEffect = StatLogic:GetEffectFromRating(TP_Table.resilience, CR_CRIT_TAKEN_MELEE, TP_Table.playerLevel) * 0.01
+	TP_Table.resilienceEffect = StatLogic:GetEffectFromRating(TP_Table.resilience, CR_RESILIENCE_CRIT_TAKEN, TP_Table.playerLevel) * 0.01
 	if (not school) or school == TP_MELEE then
 		-- Armor Reduction
 		TP_Table.armorReduction = self:GetArmorReduction(TP_Table.armor, TP_Table.mobLevel)
@@ -2577,14 +2585,14 @@ function TankPoints:CalculateTankPoints(TP_Table, school, forceShield)
 		else
 			TP_Table.blockChance = 0
 		end
-		
+
 		-- Crushing Blow Chance
 		TP_Table.mobCrushChance = 0
 		if (TP_Table.mobLevel - TP_Table.playerLevel) > 3 then -- if mob is 4 levels or above crushing blow will happen
 			-- The chance is 10% per level difference minus 15%
 			TP_Table.mobCrushChance = (TP_Table.mobLevel - TP_Table.playerLevel) * 0.1 - 0.15
 		end
-		
+
 		-- Mob's Crit Damage Mod
 		TP_Table.mobCritDamageMod = max(0, 1 - TP_Table.resilienceEffect * 2)
 		-- Mob Damage
@@ -2758,7 +2766,7 @@ function TankPoints:GetTankPoints(TP_Table, school, forceShield)
 	-- Warrior Talent: Shield Mastery (Rank 2) - 3,8
 	--	Increases your block value by 15%/30% and reduces the cooldown of your Shield Block ability by 10/20 sec.
 	-- GetSpellInfo(2565) = "Shield Block"
-	if self.playerClass == "WARRIOR" and (not school or school == TP_MELEE) and not UnitBuff("player", SI["Shield Block"]) then
+	if self.playerClass == "WARRIOR" and (not school or school == TP_MELEE) and not AuraUtil.FindAuraByName(SI["Shield Block"], "player") then
 		-- Get a copy for Shield Block skill calculations
 		local inputCopy = {}
 		copyTable(inputCopy, TP_Table)
@@ -2779,8 +2787,8 @@ function TankPoints:GetTankPoints(TP_Table, school, forceShield)
 		inputCopy = nil
 	-- Paladin Talent: Holy Shield - 8 sec cooldown - 2,17
 	-- 	Increases chance to block by 30% for 10 sec and deals 211 Holy damage for each attack blocked while active. Each block expends a charge. 8 charges.
-	elseif self.playerClass == "PALADIN" and select(5, GetTalentInfo(2, 17)) > 0 
-	and (not school or school == TP_MELEE) and not UnitBuff("player", SI["Holy Shield"]) then
+	elseif self.playerClass == "PALADIN" and select(5, GetTalentInfo(2, 7)) > 0
+	and (not school or school == TP_MELEE) and not AuraUtil.FindAuraByName(SI["Holy Shield"], "player") then
 		if 10 / (8 + TP_Table.shieldBlockDelay) >= 1 then -- If Holy Shield has 100% uptime
 			TP_Table.blockChance = TP_Table.blockChance + 0.3
 			self:CalculateTankPoints(TP_Table, school, forceShield)

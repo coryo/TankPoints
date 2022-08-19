@@ -13,7 +13,7 @@ LastUpdate: $Date: 2009-01-16 21:49:12 +0000 (Fri, 16 Jan 2009) $
 ---------------
 local TipHooker = LibStub:GetLibrary("LibTipHooker-1.1")
 local StatLogic = LibStub:GetLibrary("LibStatLogic-1.1")
-local L = AceLibrary("AceLocale-2.2"):new("TankPoints")
+local L = LibStub("AceLocale-3.0"):GetLocale("TankPoints")
 
 
 --------------------
@@ -347,7 +347,7 @@ function TPTips.ProcessTooltip(tooltip, name, link)
 	if TankPoints.playerClass == "WARRIOR" then
 		ehbRight = rightFromDifference(tpTable.effectiveHealthWithBlock[TP_MELEE], TP.resultsTable.effectiveHealthWithBlock[TP_MELEE], profile.showTooltipEHBDiff, profile.showTooltipEHBTotal)
 	end
-	
+
 	--------------------------------------------------------------
 	-- Calculate TP difference with 2ed equipped item if needed --
 	--------------------------------------------------------------

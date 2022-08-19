@@ -12,7 +12,7 @@ LastUpdate: $Date: 2009-09-01 21:41:45 +0000 (Tue, 01 Sep 2009) $
 -- Libraries --
 ---------------
 local StatLogic = LibStub:GetLibrary("LibStatLogic-1.1")
-local L = AceLibrary("AceLocale-2.2"):new("TankPoints")
+local L = LibStub("AceLocale-3.0"):GetLocale("TankPoints")
 
 
 --------------------
@@ -67,10 +67,12 @@ end
 -------------------------------
 -- TankPointsCalculatorFrame --
 -------------------------------
-function TankPointsCalculatorFrame_OnLoad()
+function TankPointsCalculatorFrame_OnLoad(self)
 	-- Esc closes the window
-	tinsert(UISpecialFrames, this:GetName())
-	
+	tinsert(UISpecialFrames, self:GetName())
+
+	TankPointsCalculatorFrame:SetBackdrop(BACKDROP_DARK_DIALOG_32_32 )
+
 	-- Set title text
 	TankPointsCalculatorFrame_HeaderText:SetText(L["TankPoints Calculator"])
 	-- Set drag frame tooltip
@@ -87,18 +89,18 @@ function TankPointsCalculatorFrame_OnLoad()
 	TPCalc.playerClass = select(2, UnitClass("player"))
 	TPCalc:SetLabels()
 	TPCalc:AdjustResultFrameSize()
-	
+
 	-- Set tooltips
 	TPCMobStats2.tooltip = L["Mob Damage before DR"]
-	
+
 	-- Register events
-	this:RegisterEvent("UNIT_LEVEL")
-	this:RegisterEvent("UNIT_RESISTANCES")
-	this:RegisterEvent("UNIT_STATS")
-	this:RegisterEvent("UNIT_DEFENSE")
-	this:RegisterEvent("UNIT_MAXHEALTH")
-	this:RegisterEvent("UNIT_AURA")
-	this:RegisterEvent("UNIT_INVENTORY_CHANGED")
+	self:RegisterEvent("UNIT_LEVEL")
+	self:RegisterEvent("UNIT_RESISTANCES")
+	self:RegisterEvent("UNIT_STATS")
+	self:RegisterEvent("UNIT_DEFENSE")
+	self:RegisterEvent("UNIT_MAXHEALTH")
+	self:RegisterEvent("UNIT_AURA")
+	self:RegisterEvent("UNIT_INVENTORY_CHANGED")
 end
 
 function TankPointsCalculatorFrame_OnEvent(self, event, ...)
@@ -133,9 +135,9 @@ function TankPointsCalculatorVariables_DecrementButton_OnClick(self, button, dow
 	inputBox:ClearFocus()
 end
 
-function TankPointsCalculatorVariables_InputEditBox_OnTextChanged()
+function TankPointsCalculatorVariables_InputEditBox_OnTextChanged(self)
 	--TankPoints:Print(tostring(self)..", "..tostring(this))
-	local self = this
+	-- local self = this
 	if (self:GetNumber() > 0) then
 		self:SetTextColor(GREEN_FONT_COLOR.r, GREEN_FONT_COLOR.g, GREEN_FONT_COLOR.b)
 	elseif (self:GetNumber() < 0) then
@@ -258,9 +260,9 @@ function TPCalc:UpdateResults()
 	local differenceText = "_DifferenceText"
 	local originalStatText = "_OriginalStatText"
 	local newStatText = "_NewStatText"
-	
+
 	local current, new, diff
-	
+
 	prefix = "TPCPlayerStats"
 	local i = 1
 	-- Strength
@@ -322,7 +324,7 @@ function TPCalc:UpdateResults()
 	i = i + 1
 	-- Resilience
 	changes.resilience = _G[prefix..i..inputEditBox]:GetNumber()
-	
+
 	prefix = "TPCMobStats"
 	i = 1
 	-- mobLevel
@@ -330,17 +332,17 @@ function TPCalc:UpdateResults()
 	i = i + 1
 	-- mobDamage
 	changes.mobDamage = _G[prefix..i..inputEditBox]:GetNumber()
-	
+
 	----------------
 	-- AlterTable --
 	----------------
 	TankPoints:AlterSourceData(newDT, changes)
-	
+
 	------------------------------
 	-- Calculate new TankPoints --
 	------------------------------
 	TankPoints:GetTankPoints(newDT, TP_MELEE)
-	
+
 	------------------
 	-- Display data --
 	------------------
@@ -349,8 +351,8 @@ function TPCalc:UpdateResults()
 	--TPCResults1_CurrentText
 	--TPCResults1_DifferenceText
 	--TPCResults1_ResultText
-	
-	
+
+
 	-------------------
 	-- Results Frame --
 	-------------------
@@ -390,7 +392,7 @@ function TPCalc:UpdateResults()
 		new = floor(newDT.effectiveHealthWithBlock[TP_MELEE])
 		paint_result_line("%.0f")
 	end
-	
+
 	-- Damage Reduction
 	i = i + 1
 	current = floor(self.resultsDT.totalReduction[TP_MELEE] * 100 * 100) / 100
@@ -424,7 +426,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- dodgeChance
 	i = i + 1
 	current = floor(self.resultsDT.dodgeChance * 100 * 100) / 100
@@ -442,7 +444,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- parryChance
 	i = i + 1
 	current = floor(self.resultsDT.parryChance * 100 * 100) / 100
@@ -460,7 +462,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- blockChance
 	i = i + 1
 	current = floor(self.resultsDT.blockChance * 100 * 100) / 100
@@ -478,7 +480,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- mobCritChance
 	i = i + 1
 	current = floor(self.resultsDT.mobCritChance * 100 * 100) / 100
@@ -496,7 +498,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- mobCrushChance
 	i = i + 1
 	current = floor(self.resultsDT.mobCrushChance * 100 * 100) / 100
@@ -514,7 +516,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- mobHitChance
 	i = i + 1
 	current = floor(max(0, (1 - self.resultsDT.mobCrushChance - self.resultsDT.mobCritChance - self.resultsDT.blockChance - self.resultsDT.parryChance - self.resultsDT.dodgeChance - self.resultsDT.mobMissChance)) * 100 * 100) / 100
@@ -532,7 +534,7 @@ function TPCalc:UpdateResults()
 		_G[prefix..i..resultText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 		_G[prefix..i..differenceText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	------------------------
 	-- Player Stats Frame --
 	------------------------
@@ -550,7 +552,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Agility
 	i = i + 1
 	_, current = UnitStat("player", 2)
@@ -564,7 +566,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Stamina
 	i = i + 1
 	_, current = UnitStat("player", 3)
@@ -578,10 +580,10 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Max Health
 	i = i + 1
-	current = self.resultsDT.playerHealth
+	current = floor(self.resultsDT.playerHealth)
 	new = floor(newDT.playerHealth)
 	_G[prefix..i..originalStatText]:SetText(current)
 	_G[prefix..i..newStatText]:SetText(new)
@@ -592,7 +594,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Armor (Items)
 	i = i + 1
 	current = self.resultsDT.armor
@@ -606,7 +608,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Armor
 	i = i + 1
 	current = self.resultsDT.armor
@@ -620,7 +622,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Defense Rating
 	i = i + 1
 	current = GetCombatRating(CR_DEFENSE_SKILL)
@@ -634,7 +636,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Defense
 	i = i + 1
 	current = self.resultsDT.defense
@@ -648,7 +650,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Dodge Rating
 	i = i + 1
 	current = GetCombatRating(CR_DODGE)
@@ -662,7 +664,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Dodge
 	i = i + 1
 	current = floor(self.resultsDT.dodgeChance * 100 * 100) / 100
@@ -676,7 +678,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Parry Rating
 	i = i + 1
 	current = GetCombatRating(CR_PARRY)
@@ -690,7 +692,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Parry
 	i = i + 1
 	current = floor(self.resultsDT.parryChance * 100 * 100) / 100
@@ -704,7 +706,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Block Rating
 	i = i + 1
 	current = GetCombatRating(CR_BLOCK)
@@ -718,7 +720,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Block
 	i = i + 1
 	current = floor(self.resultsDT.blockChance * 100 * 100) / 100
@@ -732,7 +734,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Block Value
 	i = i + 1
 	current = self.resultsDT.blockValue
@@ -746,7 +748,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- Resilience
 	i = i + 1
 	current = self.resultsDT.resilience
@@ -760,7 +762,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	---------------------
 	-- Mob Stats Frame --
 	---------------------
@@ -778,7 +780,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	-- mobDamage
 	i = i + 1
 	current = floor(TankPoints:GetMobDamage(self.resultsDT.mobLevel))
@@ -792,7 +794,7 @@ function TPCalc:UpdateResults()
 	else
 		_G[prefix..i..newStatText]:SetTextColor(HIGHLIGHT_FONT_COLOR.r, HIGHLIGHT_FONT_COLOR.g, HIGHLIGHT_FONT_COLOR.b)
 	end
-	
+
 	--------------
 	-- Clean up --
 	--------------

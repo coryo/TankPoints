@@ -167,8 +167,8 @@
 						self:HighlightText()
 					</OnEditFocusGained>
 					<OnTextChanged>
-						TankPointsCalculatorVariables_InputEditBox_OnTextChanged()
-					</OnTextChanged> 
+						TankPointsCalculatorVariables_InputEditBox_OnTextChanged(self)
+					</OnTextChanged>
 				</Scripts>
 				<FontString inherits="ChatFontNormal"/>
 			</EditBox>
@@ -241,7 +241,7 @@
 		</Scripts>
 	</Frame>
 	<!-- Template for a Frame Box -->
-	<Frame name="TPCFrameBoxTemplate" virtual="true">
+	<Frame name="TPCFrameBoxTemplate" virtual="true" inherits="BackdropTemplate">
 		<Layers>
 			<Layer level="BACKGROUND">
 				<FontString name="$parentTitle" inherits="GameFontHighlight">
@@ -255,25 +255,11 @@
 				</FontString>
 			</Layer>
 		</Layers>
-		<Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
-			<EdgeSize>
-				<AbsValue val="16"/>
-			</EdgeSize>
-			<TileSize>
-				<AbsValue val="16"/>
-			</TileSize>
-			<BackgroundInsets>
-				<AbsInset left="5" right="5" top="5" bottom="5"/>
-			</BackgroundInsets>
-		</Backdrop>
-		<Scripts>
-			<OnLoad>
-				self:SetBackdropBorderColor(0.4, 0.4, 0.4);
-				self:SetBackdropColor(0.5, 0.5, 0.5);
-			</OnLoad>
-		</Scripts>
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_TOOLTIP_8_8_1111" type="global" />
+		</KeyValues>
 	</Frame>
-	
+
 	<!-- Template for TankPoints calculated results -->
 	<Frame name="TPCResultsTemplate" virtual="true">
 		<Size>
@@ -350,32 +336,22 @@
 		<Frames>
 		</Frames>
 	</Frame>
-	
+
 	<!-- Main calculator frame -->
-	<Frame name="TankPointsCalculatorFrame" parent="UIParent" enableMouse="true" movable="true" frameStrata="DIALOG" hidden="true" toplevel="true">
+	<Frame name="TankPointsCalculatorFrame" parent="UIParent" enableMouse="true" movable="true" frameStrata="HIGH" hidden="true" toplevel="true" inherits="BackdropTemplate">
 		<Size>
 			<AbsDimension x="400" y="693"/>
 		</Size>
-		
+
 		<Anchors>
 			<Anchor point="CENTER"/>
 		</Anchors>
 
-		<Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background" edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
-			<BackgroundInsets>
-				<AbsInset left="11" right="12" top="12" bottom="11" />	
-				<Size>
-					<AbsDimension x="128" y="17" />
-				</Size>
-			</BackgroundInsets>
-			<TileSize>
-				<AbsValue val="32" />
-			</TileSize>
-			<EdgeSize>
-				<AbsValue val="32" />
-			</EdgeSize>
-		</Backdrop>
-		
+		<KeyValues>
+			<KeyValue key="backdropInfo" value="BACKDROP_DIALOG_32_32" type="global" />
+		</KeyValues>
+
+
 		<Layers>
 			<Layer level="ARTWORK">
 				<Texture file="Interface\DialogFrame\UI-DialogBox-Header">
@@ -401,7 +377,7 @@
 				</FontString>
 			</Layer>
 		</Layers>
-		
+
 		<Frames>
 			<!-- Drag Frame -->
 			<Frame name="$parent_DragFrame">
@@ -417,9 +393,9 @@
 				</Anchors>
 				<Scripts>
 					<OnMouseDown>
-						if ( arg1 == "LeftButton" ) then
+						if ( button == "LeftButton" ) then
 							self:GetParent():StartMoving();
-						elseif ( arg1 == "RightButton" ) then
+						elseif ( button == "RightButton" ) then
 							self:GetParent():ClearAllPoints();
 							self:GetParent():SetPoint("CENTER", "UIParent", "CENTER");
 						end
@@ -449,11 +425,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Scripts>
-					<OnLoad>
-						self:SetBackdropColor(0,0,0)
-					</OnLoad>
-				</Scripts>
 				<Frames>
 					<!-- TankPoints -->
 					<Frame name="TPCResults1" inherits="TPCResultsTemplate" id="1">
@@ -466,10 +437,10 @@
 						</Anchors>
 						<Scripts>
 							<OnEnter>
-								
+
 							</OnEnter>
 							<OnLeave>
-								
+
 							</OnLeave>
 						</Scripts>
 					</Frame>
@@ -509,11 +480,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Scripts>
-					<OnLoad>
-						self:SetBackdropColor(0,0,0)
-					</OnLoad>
-				</Scripts>
 				<Frames>
 					<!-- Miss -->
 					<Frame name="TPCCombatTable1" inherits="TPCResultsTemplate" id="1">
@@ -576,11 +542,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Scripts>
-					<OnLoad>
-						self:SetBackdropColor(0,0,0)
-					</OnLoad>
-				</Scripts>
 				<Frames>
 					<!-- Strength -->
 					<Frame name="TPCPlayerStats1" inherits="TPCVariablesTemplate" id="1">
@@ -752,11 +713,6 @@
 						</Offset>
 					</Anchor>
 				</Anchors>
-				<Scripts>
-					<OnLoad>
-						self:SetBackdropColor(0,0,0)
-					</OnLoad>
-				</Scripts>
 				<Frames>
 					<!-- Mob Level -->
 					<Frame name="TPCMobStats1" inherits="TPCVariablesTemplate" id="1">
@@ -808,19 +764,19 @@
 				</Scripts>
 			</Button>
 		</Frames>
-		
+
 		<Scripts>
 			<OnLoad>
-				TankPointsCalculatorFrame_OnLoad()
+				TankPointsCalculatorFrame_OnLoad(self)
 			</OnLoad>
 			<OnEvent>
 				TankPointsCalculatorFrame_OnEvent(self, event, ...)
 			</OnEvent>
 			<OnShow>
-				TankPointsCalculatorFrame_OnShow()
+				TankPointsCalculatorFrame_OnShow(self)
 			</OnShow>
 			<OnMouseDown>
-				if ( arg1 == "LeftButton" ) then
+				if ( button == "LeftButton" ) then
 					self:StartMoving();
 				end
 			</OnMouseDown>

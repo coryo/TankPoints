@@ -1,5 +1,5 @@
-﻿## Interface: 30300
-## Title: TankPoints |cff7fff7f -Ace2-|r
+﻿## Interface: 25400
+## Title: TankPoints |cff7fff7f -Ace3-|r
 ## Notes: Calculates and shows your TankPoints in the PaperDall Frame.
 ## Notes-zhTW: 計算並顯示你的坦克點。
 ## Notes-zhCN: 在角色窗口中计算并显示你的坦克点数
@@ -7,23 +7,13 @@
 ## Author: Whitetooth
 ## X-eMail: hotdogee [at] gmail [dot] com
 ## SavedVariables: TankPointsDB
-## OptionalDeps: Ace2, LibStatLogic-1.1, LibTipHooker-1.1, StatFrameLib, UTF8, Waterfall-1.0
-## X-Embeds: Ace2, LibStatLogic-1.1, LibTipHooker-1.1, StatFrameLib, UTF8, Waterfall-1.0
+## OptionalDeps: Ace3, LibStatLogic-1.1, LibTipHooker-1.1, StatFrameLib, UTF8, Waterfall-1.0
+## X-Embeds: Ace3, LibStatLogic-1.1, LibTipHooker-1.1, StatFrameLib, UTF8, Waterfall-1.0
 ## X-Category: Interface Enhancements
 ## X-RelSite-WoWI: 6419
 ## X-RelSite-Curse: 992
 ## X-License: GPL v2
-## X-Encoding: UTF-8
-## X-Curse-Packaged-Version: 2.8.6
-## X-Curse-Project-Name: TankPoints
-## X-Curse-Project-ID: tank-points
-## X-Curse-Repository-ID: wow/tank-points/mainline
 
-#####################
-# Non-Ace Libraries #
-#####################
-UTF8\utf8data.lua
-UTF8\utf8.lua
 
 #################
 # Ace Libraries #
@@ -34,12 +24,12 @@ embeds.xml
 # Localization Files #
 ######################
 TankPoints-Locale-enUS.lua
-TankPoints-Locale-zhTW.lua
-TankPoints-Locale-deDE.lua
-TankPoints-Locale-frFR.lua
-TankPoints-Locale-koKR.lua
-TankPoints-Locale-esES.lua
-TankPoints-Locale-zhCN.lua
+#TankPoints-Locale-zhTW.lua
+#TankPoints-Locale-deDE.lua
+#TankPoints-Locale-frFR.lua
+#TankPoints-Locale-koKR.lua
+#TankPoints-Locale-esES.lua
+#TankPoints-Locale-zhCN.lua
 
 ########
 # Core #
