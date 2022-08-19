@@ -2884,7 +2884,7 @@ elseif playerClass == "DEATHKNIGHT" then
 		["ADD_AP_MOD_ARMOR"] = {
 			{
 				["tab"] = 1,
-				["num"] = 4,
+				["num"] = 2,
 				["rank"] = {
 					1/180, 2/180, 3/180, 4/180, 5/180,
 				},
@@ -3026,7 +3026,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 1,
-				["num"] = 24,
+				["num"] = 17,
 				["rank"] = {
 					-0.05, -0.1, -0.15,
 				},
@@ -3040,7 +3040,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 3,
-				["num"] = 17,
+				["num"] = 16,
 				["rank"] = {
 					-0.02, -0.04, -0.06,
 				},
@@ -3054,7 +3054,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 3,
-				["num"] = 18,
+				["num"] = 16,
 				["rank"] = {
 					-0.02, -0.04, -0.06,
 				},
@@ -3109,7 +3109,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 17,
 				["rank"] = {
 					-0.01, -0.02,
 				},
@@ -3121,7 +3121,7 @@ elseif playerClass == "DEATHKNIGHT" then
 		["ADD_DODGE"] = {
 			{
 				["tab"] = 3,
-				["num"] = 3,
+				["num"] = 27,
 				["rank"] = {
 					1, 2, 3, 4, 5,
 				},
@@ -3132,7 +3132,7 @@ elseif playerClass == "DEATHKNIGHT" then
 		["ADD_HIT_TAKEN"] = {
 			{
 				["tab"] = 2,
-				["num"] = 13,
+				["num"] = 9,
 				["rank"] = {
 					-0.01, -0.02, -0.03,
 				},
@@ -3150,7 +3150,7 @@ elseif playerClass == "DEATHKNIGHT" then
 		["MOD_ARMOR"] = {
 			{
 				["tab"] = 2,
-				["num"] = 3,
+				["num"] = 1,
 				["rank"] = {
 					0.03, 0.06, 0.09, 0.12, 0.15,
 				},
@@ -3158,7 +3158,7 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 3,
+				["num"] = 1,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -3201,7 +3201,7 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 17,
 				["rank"] = {
 					0.05, 0.1,
 				},
@@ -3210,7 +3210,7 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 17,
 				["rank"] = {
 					0.05, 0.1,
 				},
@@ -3231,7 +3231,7 @@ elseif playerClass == "DEATHKNIGHT" then
 		["MOD_STA"] = {
 			{
 				["tab"] = 1,
-				["num"] = 14,
+				["num"] = 11,
 				["rank"] = {
 					0.02, 0.04, 0.06,
 				},
@@ -3239,7 +3239,7 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 1,
-				["num"] = 14,
+				["num"] = 11,
 				["rank"] = {
 					0.01, 0.02, 0.03,
 				},
@@ -3261,7 +3261,7 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 17,
 				["rank"] = {
 					0.03, 0.06,
 				},
@@ -3270,7 +3270,7 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 21,
+				["num"] = 17,
 				["rank"] = {
 					0.03, 0.06,
 				},
@@ -3289,7 +3289,7 @@ elseif playerClass == "DEATHKNIGHT" then
 		["MOD_STR"] = {
 			{
 				["tab"] = 1,
-				["num"] = 14,
+				["num"] = 1,
 				["rank"] = {
 					0.02, 0.04, 0.06,
 				},
@@ -3310,14 +3310,14 @@ elseif playerClass == "DEATHKNIGHT" then
 			},
 			{
 				["tab"] = 3,
-				["num"] = 7,
+				["num"] = 3,
 				["rank"] = {
 					0.01, 0.02, 0.03,
 				},
 			},
 			{
 				["tab"] = 1,
-				["num"] = 17,
+				["num"] = 26,
 				["rank"] = {
 					0.01, 0.02,
 				},
