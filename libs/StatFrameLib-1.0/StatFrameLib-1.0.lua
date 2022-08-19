@@ -128,8 +128,6 @@ function StatFrameLib:AddStatFrame(frame_name,frame_label)
       frame_indexes[self] = {}
    end
 
-
-   print(frame_name, frame_label)
    local frame_index = frame_index_from_name(frame_name)
 
    for _,v in ipairs(PLAYERSTAT_DROPDOWN_OPTIONS) do

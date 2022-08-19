@@ -639,6 +639,10 @@ function TankPoints:OnInitialize()
 	TankPoints.playerClass = class
 	local _, race = UnitRace("player")
 	TankPoints.playerRace = race
+
+	-- Add "TankPoints" to playerstat drop down list
+	self:AddStatFrame("TankPoints", L["TankPoints"])
+	self:AddStatFrame("EffectiveHealth", L["Effective Health"])
 end
 
 -- OnEnable() called at PLAYER_LOGIN
@@ -652,9 +656,6 @@ function TankPoints:OnEnable()
 	self.tpPerStat = false
 	-- Calculate TankPoints
 	self:UpdateDataTable()
-	-- Add "TankPoints" to playerstat drop down list
-	self:AddStatFrame("TankPoints", L["TankPoints"])
-	self:AddStatFrame("EffectiveHealth", L["Effective Health"])
 end
 
 function TankPoints:SetupFrameTankPoints(line1, line2, line3, line4, line5, line6)
@@ -729,6 +730,8 @@ end
 -- TankPoints:PaintTankPoints(PlayerStatFrameRight1, PlayerStatFrameRight2, PlayerStatFrameRight3, PlayerStatFrameRight4, PlayerStatFrameRight5, PlayerStatFrameRight6)
 function TankPoints:PaintTankPoints(line1, line2, line3, line4, line5, line6)
 	self:GetTankPointsIfNotFilled(self.resultsTable, nil)
+
+	if not self.resultsTable.tankPoints then return end
 	if self.setSchool then
 		self.currentSchool = self.setSchool
 	else
