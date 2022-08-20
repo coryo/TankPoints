@@ -13,9 +13,6 @@ LastUpdate: $Date: 2009-12-08 23:43:21 +0000 (Tue, 08 Dec 2009) $
 ---------------
 local TipHooker = LibStub:GetLibrary("LibTipHooker-1.1")
 local StatLogic = LibStub:GetLibrary("LibStatLogic-1.1")
-local AceConfig = LibStub:GetLibrary("AceConfig-3.0")
-local AceConfigDialog = LibStub:GetLibrary("AceConfigDialog-3.0")
-
 local L = LibStub("AceLocale-3.0"):GetLocale("TankPoints")
 
 
@@ -188,13 +185,15 @@ end
 ---------------------------
 local consoleOptions = {
 	type = "group",
+	name = "TankPoints",
 	args = {
 		optionswin = {
 			type = "execute",
 			name = L["Options Window"],
 			desc = L["Shows the Options Window"],
 			func = function()
-				AceConfigDialog:Open("TankPoints")
+				local ACD = LibStub("AceConfigDialog-3.0")
+				ACD:Open("TankPoints")
 			end,
 		},
 		calc = {
@@ -382,7 +381,7 @@ local consoleOptions = {
 					type = "execute",
 					name = L["Restore Default"],
 					desc = L["Restores default mob stats"],
-					func = "SetDefaultMobStats",
+					func = function() TankPoints:SetDefaultMobStats() end,
 				},
 				advanced = {
 					type = "group",
@@ -496,12 +495,6 @@ local consoleOptions = {
 	},
 }
 
-AceConfig:RegisterOptionsTable("TankPoints", consoleOptions, {"tp", "tankpoints"})
-AceConfigDialog:AddToBlizOptions("TankPoints", L["TankPoints Options"], consoleOptions)
-
--- Waterfall:Register("TankPoints",
--- "aceOptions", consoleOptions,
--- "title", L["TankPoints Options"])
 
 -----------
 -- Tools --
@@ -573,6 +566,15 @@ function TankPoints:OnInitialize()
 	self.db = LibStub("AceDB-3.0"):New("TankPointsDB", defaults, true)
 	consoleOptions.args.profiles = LibStub("AceDBOptions-3.0"):GetOptionsTable(self.db)
 	profileDB = self.db.profile
+
+	LibStub("AceConfig-3.0"):RegisterOptionsTable("TankPoints", consoleOptions, {"tp", "tankpoints"})
+
+	local ACD = LibStub("AceConfigDialog-3.0")
+	ACD:AddToBlizOptions("TankPoints", "TankPoints", nil, "calc")
+	ACD:AddToBlizOptions("TankPoints", L["TankPoints tooltip options"], "TankPoints", "tip")
+	ACD:AddToBlizOptions("TankPoints", L["Player Stats"], "TankPoints", "player")
+	ACD:AddToBlizOptions("TankPoints", L["Mob Stats"], "TankPoints", "mob")
+	ACD:AddToBlizOptions("TankPoints", "Profiles", "TankPoints", "profiles")
 
 	-- OnUpdate Frame
 	self.OnUpdateFrame = CreateFrame("Frame")
