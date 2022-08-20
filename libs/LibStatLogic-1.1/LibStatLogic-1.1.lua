@@ -2998,7 +2998,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					-0.05,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_FrostPresence",
+				["stance"] = 135773,
 				["old"] = 10371,
 			},
 			{
@@ -3013,7 +3013,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					-0.08,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_FrostPresence",
+				["stance"] = 135773,
 				["new"] = 10371,
 			},
 			{--Will of the Necropolis (Rank 3) - 1,24
@@ -3113,7 +3113,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					-0.01, -0.02,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_FrostPresence",
+				["stance"] = 135773,
 			},
 		},
 		-- Death Knight: Anticipation (Rank 5) - 3,3
@@ -3182,7 +3182,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.6,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_FrostPresence",
+				["stance"] = 135773,
 			},
 		},
 		-- Death Knight: Frost Presence - Buff
@@ -3196,7 +3196,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.1,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_FrostPresence",
+				["stance"] = 135773,
 				["old"] = 10147,
 			},
 			{
@@ -3205,7 +3205,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.05, 0.1,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_BloodPresence",
+				["stance"] = 135770,
 				["old"] = 10147,
 			},
 			{
@@ -3214,7 +3214,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.05, 0.1,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_UnholyPresence",
+				["stance"] = 135775,
 				["old"] = 10147,
 			},
 		},
@@ -3256,7 +3256,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.06,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_FrostPresence",
+				["stance"] = 135773,
 				["new"] = 10147,
 			},
 			{
@@ -3265,7 +3265,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.03, 0.06,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_BloodPresence",
+				["stance"] = 135770,
 				["new"] = 10147,
 			},
 			{
@@ -3274,7 +3274,7 @@ elseif playerClass == "DEATHKNIGHT" then
 				["rank"] = {
 					0.03, 0.06,
 				},
-				["stance"] = "Interface\\Icons\\Spell_Deathknight_UnholyPresence",
+				["stance"] = 135775,
 				["new"] = 10147,
 			},
 		},
@@ -4846,7 +4846,7 @@ elseif playerClass == "WARRIOR" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 3,
-				["num"] = 10,
+				["num"] = 27,
 				["rank"] = {
 					-0.02, -0.04,
 				},
@@ -4857,7 +4857,7 @@ elseif playerClass == "WARRIOR" then
 		["ADD_AP_MOD_ARMOR"] = {
 			{
 				["tab"] = 2,
-				["num"] = 1,
+				["num"] = 27,
 				["rank"] = {
 					1/180, 2/180, 3/180,
 				},
@@ -4865,7 +4865,7 @@ elseif playerClass == "WARRIOR" then
 			},
 			{
 				["tab"] = 2,
-				["num"] = 1,
+				["num"] = 27,
 				["rank"] = {
 					1/108, 2/108, 3/108,
 				},
@@ -4877,7 +4877,7 @@ elseif playerClass == "WARRIOR" then
 		["ADD_DODGE"] = {
 			{
 				["tab"] = 3,
-				["num"] = 5,
+				["num"] = 1,
 				["rank"] = {
 					1, 2, 3, 4, 5,
 				},
@@ -4939,7 +4939,7 @@ elseif playerClass == "WARRIOR" then
 				["rank"] = {
 					-0.1,
 				},
-				["stance"] = "Interface\\Icons\\Ability_Warrior_DefensiveStance",
+				["stance"] = 132341,
 			},
 			{
 				["MELEE"] = true,
@@ -4953,7 +4953,7 @@ elseif playerClass == "WARRIOR" then
 				["rank"] = {
 					0.05,
 				},
-				["stance"] = "Interface\\Icons\\Ability_Racial_Avatar",
+				["stance"] = 132275,
 			},
 			{
 				["MELEE"] = true,
@@ -4991,7 +4991,7 @@ elseif playerClass == "WARRIOR" then
 				["SHADOW"] = true,
 				["ARCANE"] = true,
 				["tab"] = 3,
-				["num"] = 17,
+				["num"] = 16,
 				["rank"] = {
 					-0.03, -0.06,
 				},
@@ -5012,7 +5012,7 @@ elseif playerClass == "WARRIOR" then
 		["MOD_ARMOR"] = {
 			{
 				["tab"] = 3,
-				["num"] = 9,
+				["num"] = 2,
 				["rank"] = {
 					0.02, 0.04, 0.06, 0.08, 0.1,
 				},
@@ -5025,14 +5025,14 @@ elseif playerClass == "WARRIOR" then
 		["MOD_STA"] = {
 			{
 				["tab"] = 3,
-				["num"] = 20,
+				["num"] = 17,
 				["rank"] = {
 					0.02, 0.04, 0.06,
 				},
 			},
 			{
 				["tab"] = 1,
-				["num"] = 22,
+				["num"] = 26,
 				["rank"] = {
 					0.02, 0.04,
 				},
@@ -5048,25 +5048,25 @@ elseif playerClass == "WARRIOR" then
 		["MOD_STR"] = {
 			{
 				["tab"] = 3,
-				["num"] = 20,
+				["num"] = 17,
 				["rank"] = {
 					0.02, 0.04, 0.06,
 				},
 			},
 			{
 				["tab"] = 1,
-				["num"] = 22,
+				["num"] = 26,
 				["rank"] = {
 					0.02, 0.04,
 				},
 			},
 			{
 				["tab"] = 2,
-				["num"] = 22,
+				["num"] = 19,
 				["rank"] = {
 					0.04, 0.08, 0.12, 0.16, 0.2,
 				},
-				["stance"] = "Interface\\Icons\\Ability_Racial_Avatar",
+				["stance"] = 132275,
 			},
 		},
 		-- Warrior: Shield Mastery (Rank 2) - 3,8
@@ -5074,7 +5074,7 @@ elseif playerClass == "WARRIOR" then
 		["MOD_BLOCK_VALUE"] = {
 			{
 				["tab"] = 3,
-				["num"] = 8,
+				["num"] = 18,
 				["rank"] = {
 					0.15, 0.3,
 				},

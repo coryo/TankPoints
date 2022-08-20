@@ -1901,7 +1901,7 @@ function TankPoints:GetEffectiveHealthWithBlock(TP_Table, mobDamage)
 		if not AuraUtil.FindAuraByName(SI["Shield Block"], "player") then
 			blockValue = blockValue * 2
 		end
-		local _, _, _, _, r = GetTalentInfo(3, 8)
+		local _, _, _, _, r = GetTalentInfo(3, 18)
 		sbCoolDown = 60 - r * 10
 		sbDuration = 10
 		sbCharges = 100
@@ -2727,7 +2727,7 @@ function TankPoints:GetTankPoints(TP_Table, school, forceShield)
 		self:CalculateTankPoints(inputCopy, TP_MELEE, forceShield)
 		self:CalculateTankPoints(TP_Table, school, forceShield)
 		-- Calculate Shield Block up time
-		local _, _, _, _, r = GetTalentInfo(3, 8)
+		local _, _, _, _, r = GetTalentInfo(3, 18)
 		local shieldBlockCoolDown = 60 - r * 10
 		local shieldBlockUpTime = 10 / (shieldBlockCoolDown + inputCopy.shieldBlockDelay)
 		TP_Table.totalReduction[TP_MELEE] = TP_Table.totalReduction[TP_MELEE] * (1 - shieldBlockUpTime) + inputCopy.totalReduction[TP_MELEE] * shieldBlockUpTime
