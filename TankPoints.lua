@@ -753,10 +753,13 @@ function TankPoints:PaintEffectiveHealth(line1, line2, line3, line4, line5, line
  	self:StatBoxSet(line1, L["EH"], commaValue(floor(self.resultsTable.effectiveHealth[TP_MELEE])))
 	if self.playerClass == "WARRIOR" or self.playerClass == "PALADIN"then
 		self:StatBoxSet(line2, L["EH Block"], commaValue(floor(self.resultsTable.effectiveHealthWithBlock[TP_MELEE])))
+	else
+		line2:Hide()
 	end
  	self:StatBoxSet(line3, L["Block Value"], self.resultsTable.blockValue)
  	self:StatBoxSet(line4, self.SchoolName[self.currentEHSchool]..L[" EH"], commaValue(floor(self.resultsTable.effectiveHealth[self.currentEHSchool])))
 	self:StatBoxSet(line5, self.SchoolName[self.penultimateEHSchool]..L[" EH"], commaValue(floor(self.resultsTable.effectiveHealth[self.penultimateEHSchool])))
+	line6:Hide()
 end
 
 function TankPoints:PaintEffectiveHealthTooltip()

@@ -409,11 +409,16 @@ function setBlizEventHooks(frame, index)
    stat2:SetScript("OnEnter", PaperDollStatTooltip);
    stat4:SetScript("OnEnter", PaperDollStatTooltip);
 
+   for i,stat in ipairs(frame) do
+      stat:Show();
+   end
+
    if ( index == "PLAYERSTAT_BASE_STATS" ) then
    elseif ( index == "PLAYERSTAT_MELEE_COMBAT" ) then
       stat1:SetScript("OnEnter", CharacterDamageFrame_OnEnter);
    elseif ( index == "PLAYERSTAT_RANGED_COMBAT" ) then
       stat1:SetScript("OnEnter", CharacterRangedDamageFrame_OnEnter);
+      stat6:Hide();
    elseif ( index == "PLAYERSTAT_SPELL_COMBAT" ) then
       stat1:SetScript("OnEnter", CharacterSpellBonusDamage_OnEnter);
       stat4:SetScript("OnEnter", CharacterSpellCritChance_OnEnter);
