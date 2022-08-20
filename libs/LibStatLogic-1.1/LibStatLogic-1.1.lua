@@ -1518,13 +1518,13 @@ local function GetTotalDefense(unit)
 end
 
 local function PlayerHasGlyph(glyph, talentGroup)
-	return false
-	-- for i = 1, 6 do
-	-- 	local _, _, glyphSpellID = GetGlyphSocketInfo(i, talentGroup)
-	-- 	if glyphSpellID == glyph then
-	-- 		return true
-	-- 	end
-	-- end
+	if not GetGlyphSocketInfo then return end
+	for i = 1, 6 do
+		local _, _, glyphSpellID = GetGlyphSocketInfo(i, talentGroup)
+		if glyphSpellID == glyph then
+			return true
+		end
+	end
 end
 
 ---------------
