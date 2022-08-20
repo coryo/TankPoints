@@ -1503,12 +1503,12 @@ end
 
 local function GetPlayerBuffRankStack(buff)
 	--name, rank, icon, count, debuffType, duration, expirationTime, isMine, isStealable = UnitAura("player", buff)
-	local hasBuff, rank, _, count = GetPlayerBuffName(buff)
+	local hasBuff, rank, count, _ = GetPlayerBuffName(buff)
 	if hasBuff then
 		if not count or count == 0 then
 			count = 1
 		end
-		return tonumber(strmatch(rank, "(%d+)") or 1), count
+		return 1, count
 	end
 end
 
