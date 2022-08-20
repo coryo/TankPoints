@@ -5568,7 +5568,8 @@ function StatLogic:GetStatMod(stat, school, talentGroup)
 					end
 				-- no talent but buff is given
 				elseif case.buff then
-					r, s = GetPlayerBuffRankStack(case.buff)
+					_, s = GetPlayerBuffRankStack(case.buff)
+					r = #case.rank
 					if not case.buffStack then
 						s = 1
 					end
@@ -5609,7 +5610,8 @@ function StatLogic:GetStatMod(stat, school, talentGroup)
 					end
 				-- no talent but buff is given
 				elseif case.buff then
-					r, s = GetPlayerBuffRankStack(case.buff)
+					_, s = GetPlayerBuffRankStack(case.buff)
+					r = #case.rank
 					if not case.buffStack then
 						s = 1
 					end
