@@ -1503,12 +1503,13 @@ end
 
 local function GetPlayerBuffRankStack(buff)
 	--name, rank, icon, count, debuffType, duration, expirationTime, isMine, isStealable = UnitAura("player", buff)
-	local hasBuff, rank, count, _ = GetPlayerBuffName(buff)
-	if hasBuff then
+	local _, _, count, _, _, _, _, _, _, spellID, _ = AuraUtil.FindAuraByName(buff, "player")
+	local rank = GetSpellSubtext(spellID)
+	if spellID then
 		if not count or count == 0 then
 			count = 1
 		end
-		return 1, count
+		return rank and tonumber(strmatch(rank, "(%d+)")) or 1, count
 	end
 end
 
@@ -5568,8 +5569,7 @@ function StatLogic:GetStatMod(stat, school, talentGroup)
 					end
 				-- no talent but buff is given
 				elseif case.buff then
-					_, s = GetPlayerBuffRankStack(case.buff)
-					r = #case.rank
+					r, s = GetPlayerBuffRankStack(case.buff)
 					if not case.buffStack then
 						s = 1
 					end
@@ -5610,8 +5610,7 @@ function StatLogic:GetStatMod(stat, school, talentGroup)
 					end
 				-- no talent but buff is given
 				elseif case.buff then
-					_, s = GetPlayerBuffRankStack(case.buff)
-					r = #case.rank
+					r, s = GetPlayerBuffRankStack(case.buff)
 					if not case.buffStack then
 						s = 1
 					end
