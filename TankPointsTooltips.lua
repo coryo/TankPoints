@@ -11,7 +11,7 @@ LastUpdate: $Date: 2009-01-16 21:49:12 +0000 (Fri, 16 Jan 2009) $
 ---------------
 -- Libraries --
 ---------------
-local TipHooker = LibStub:GetLibrary("LibTipHooker-1.1")
+local TipHooker = LibStub("TipHooker-1.0")
 local StatLogic = LibStub:GetLibrary("LibStatLogic-1.1")
 local L = LibStub("AceLocale-3.0"):GetLocale("TankPoints")
 
